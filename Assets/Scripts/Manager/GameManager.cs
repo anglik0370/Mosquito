@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     public float curBloodOnce = 0f;
     public float maxBloodOnce = 100;
 
+    [Header("DNA 보유에 따른 배율")]
+    public int beaSu = 1;
+
     [Header("피 빨다 죽었는지")]
     public bool isGameOver = false;
 
@@ -68,6 +71,8 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        DataManager.Instance.LoadData();
+
         UIManager.Instance.UpdateLifeText();
         UIManager.Instance.UpdateCurBloodText();
         UIManager.Instance.UpdateMaxBloodText();
@@ -87,9 +92,9 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.SaveData();
     }
 
-    public bool CheckLife()
+    public bool CheckLife(int value)
     {
-        if ((life - 1) < 0)
+        if (life - value < 0)
         {
             ErrorManager.Instance.SendError("라이프가 부족합니다");
             return false;
@@ -114,12 +119,6 @@ public class GameManager : MonoBehaviour
 
     public void UseLife(int value)
     {
-        if(life - value < 0)
-        {
-            ErrorManager.Instance.SendError("라이프가 부족합니다");
-            return;
-        }
-
         life -= value;
         UIManager.Instance.UpdateLifeText();
     }
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
         if (value > curBlood)
         {
             ErrorManager.Instance.SendError("피가 부족합니다");
-            return false; ;
+            return false;
         }
 
         return true;
@@ -137,12 +136,6 @@ public class GameManager : MonoBehaviour
 
     public void UseBlood(int value)
     {
-        if(value > curBlood)
-        {
-            ErrorManager.Instance.SendError("피가 부족합니다");
-            return;
-        }
-
         curBlood -= value;
         UIManager.Instance.UpdateCurBloodText();
     }

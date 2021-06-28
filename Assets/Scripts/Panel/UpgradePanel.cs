@@ -9,16 +9,13 @@ public class UpgradePanel : MonoBehaviour
 
     public UpgradeBtn[] upBtns;
 
-    private void Awake()
+    void Start()
     {
         for (int i = 0; i < upBtns.Length; i++)
         {
             DataManager.Instance.LoadUpgradeData(ref upBtns[i], i);
         }
-    }
 
-    void Start()
-    {
         upBtns[0].btn.onClick.AddListener(UpgradeMax);
         upBtns[1].btn.onClick.AddListener(UpgradeMaxOnce);
         upBtns[2].btn.onClick.AddListener(UpgradeSpeed);

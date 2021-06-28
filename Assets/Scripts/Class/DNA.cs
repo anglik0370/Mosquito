@@ -11,7 +11,13 @@ public class DNA : MonoBehaviour
     public Text needLifeText;
     public Text needBloodText;
 
+    public GameObject enableText;
+    public GameObject needs;
+
     private Button btn;
+
+    public GameObject lockImg;
+    public bool isLock;
 
     private void Awake()
     {
@@ -20,6 +26,19 @@ public class DNA : MonoBehaviour
 
     private void Start()
     {
+        if(isLock)
+        {
+            lockImg.SetActive(true);
+            enableText.SetActive(false);
+            needs.SetActive(true);
+        }
+        else
+        {
+            lockImg.SetActive(false);
+            enableText.SetActive(true);
+            needs.SetActive(false);
+        }
+
         SetText();
 
         btn.onClick.AddListener(StartDNA);
@@ -33,7 +52,18 @@ public class DNA : MonoBehaviour
 
     private void StartDNA()
     {
-        GameManager.Instance.UseLife(needLife);
-        GameManager.Instance.UseBlood(needBlood);
+        if(isLock && GameManager.Instance.CheckLife(needLife) && GameManager.Instance.CheckBlood(needBlood))
+        {
+            GameManager.Instance.UseLife(needLife);
+            GameManager.Instance.UseBlood(needBlood);
+
+            lockImg.SetActive(false);
+            enableText.SetActive(true);
+            needs.SetActive(false);
+
+            GameManager.Instance.beaSu += 1;
+
+            isLock = false;
+        }
     }
 }

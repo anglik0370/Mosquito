@@ -17,4 +17,6 @@ public class DataVO
     public float maxBloodOnce = 100;
 
     public int clickAmount = 1;
+
+    public int baesu = 1;
 }

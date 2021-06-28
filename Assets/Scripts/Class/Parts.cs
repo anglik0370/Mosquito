@@ -8,14 +8,24 @@ public class Parts : MonoBehaviour
 {
     private Image img;
 
+    private RectTransform rect;
+
     [SerializeField]
-    private Vector3 mergedPos;
+    private Vector2 mergedPos;
     [SerializeField]
-    private Vector3 spreadPos;
+    private Vector2 spreadPos;
+
+    private bool isMerged = false;
 
     private void Awake()
     {
         img = GetComponent<Image>();
+        rect = GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     public bool isEnable()
@@ -33,16 +43,22 @@ public class Parts : MonoBehaviour
     public void ResetPart()
     {
         img.enabled = false;
-        transform.position = spreadPos;
+        rect.anchoredPosition = spreadPos;
+
+        isMerged = false;
     }
 
     public void MergePart()
     {
+        if (isMerged) return;
+
         img.enabled = true;
 
-        transform.DOMove(mergedPos, 1f).SetEase(Ease.InBack).OnComplete(() =>
+        rect.DOAnchorPos(mergedPos, 1f).SetEase(Ease.InBack).OnComplete(() =>
         {
             UIManager.Instance.ShakeCam();
         });
+
+        isMerged = true;
     }
 }

@@ -47,83 +47,128 @@ public class DataManager : MonoBehaviour
 
     public void SaveData()
     {
-        //DataVO data = new DataVO();
+        if (!GameManager.Instance.bSave) return;
 
-        //data.life = GameManager.Instance.life;
-        //data.maxLife = GameManager.Instance.maxLife;
+        DataVO data = new DataVO();
 
-        //data.suckPerTime = GameManager.Instance.suckPerTime;
+        data.life = GameManager.Instance.life;
+        data.maxLife = GameManager.Instance.maxLife;
 
-        //data.curBlood = GameManager.Instance.curBlood;
-        //data.maxBlood = GameManager.Instance.maxBlood;
+        data.suckPerTime = GameManager.Instance.suckPerTime;
 
-        //data.curBloodOnce = GameManager.Instance.curBloodOnce;
-        //data.maxBloodOnce = GameManager.Instance.maxBloodOnce;
+        data.curBlood = GameManager.Instance.curBlood;
+        data.maxBlood = GameManager.Instance.maxBlood;
 
-        //data.clickAmount = GameManager.Instance.clickAmount;
+        data.curBloodOnce = GameManager.Instance.curBloodOnce;
+        data.maxBloodOnce = GameManager.Instance.maxBloodOnce;
 
-        //string json = JsonUtility.ToJson(data, true);
+        data.clickAmount = GameManager.Instance.clickAmount;
 
-        //File.WriteAllText(path, json);
+        data.baesu = GameManager.Instance.beaSu;
+
+        string json = JsonUtility.ToJson(data, true);
+
+        File.WriteAllText(path, json);
     }
 
     public void LoadData()
     {
-        //if (!File.Exists(path))
-        //{
-        //    SaveData();
-        //}
+        if (!GameManager.Instance.bSave) return;
 
-        //string json = File.ReadAllText(path);
+        if (!File.Exists(path))
+        {
+            SaveData();
+        }
 
-        //DataVO data = JsonUtility.FromJson<DataVO>(json);
+        string json = File.ReadAllText(path);
 
-        //GameManager.Instance.life = data.life;
-        //GameManager.Instance.maxLife = data.maxLife;
+        DataVO data = JsonUtility.FromJson<DataVO>(json);
 
-        //GameManager.Instance.suckPerTime = data.suckPerTime;
+        GameManager.Instance.life = data.life;
+        GameManager.Instance.maxLife = data.maxLife;
 
-        //GameManager.Instance.curBlood = data.curBlood;
-        //GameManager.Instance.maxBlood = data.maxBlood;
+        GameManager.Instance.suckPerTime = data.suckPerTime;
 
-        //GameManager.Instance.curBloodOnce = data.curBloodOnce;
-        //GameManager.Instance.maxBloodOnce = data.maxBloodOnce;
+        GameManager.Instance.curBlood = data.curBlood;
+        GameManager.Instance.maxBlood = data.maxBlood;
 
-        //GameManager.Instance.clickAmount = data.clickAmount;
+        GameManager.Instance.curBloodOnce = data.curBloodOnce;
+        GameManager.Instance.maxBloodOnce = data.maxBloodOnce;
+
+        GameManager.Instance.clickAmount = data.clickAmount;
+
+        GameManager.Instance.beaSu = data.baesu;
     }
 
     public void SaveUpgradeData(UpgradeBtn upbtn, int value)
     {
-        //string path = Application.persistentDataPath + "/" + "UpgradeStat" + value +".txt";
+        if (!GameManager.Instance.bSave) return;
 
-        //UpgradeVO upVO = new UpgradeVO();
+        string path = Application.persistentDataPath + "/" + "UpgradeStat" + value + ".txt";
 
-        //upVO.level = upbtn.level;
-        //upVO.addCost = upbtn.addCost;
-        //upVO.amount = upbtn.amount;
-        //upVO.cost = upbtn.cost;
+        UpgradeVO upVO = new UpgradeVO();
 
-        //string json = JsonUtility.ToJson(upVO, true);
+        upVO.level = upbtn.level;
+        upVO.addCost = upbtn.addCost;
+        upVO.amount = upbtn.amount;
+        upVO.cost = upbtn.cost;
 
-        //File.WriteAllText(path, json);
+        string json = JsonUtility.ToJson(upVO, true);
+
+        File.WriteAllText(path, json);
     }
 
     public void LoadUpgradeData(ref UpgradeBtn upbtn, int value)
     {
-        //string path = Application.persistentDataPath + "/" + "UpgradeStat" + value + ".txt";
+        if (!GameManager.Instance.bSave) return;
 
-        //if (!File.Exists(path))
-        //{
-        //    SaveUpgradeData(upbtn, value);
-        //}
+        string path = Application.persistentDataPath + "/" + "UpgradeStat" + value + ".txt";
 
-        //string json = File.ReadAllText(path);
+        if (!File.Exists(path))
+        {
+            SaveUpgradeData(upbtn, value);
+        }
 
-        //UpgradeVO upVO = JsonUtility.FromJson<UpgradeVO>(json);
+        string json = File.ReadAllText(path);
 
-        //upbtn.level = upVO.level;
-        //upbtn.addCost = upVO.addCost;
-        //upbtn.amount = upVO.amount;
-        //upbtn.cost = upVO.cost;
+        UpgradeVO upVO = JsonUtility.FromJson<UpgradeVO>(json);
+
+        upbtn.level = upVO.level;
+        upbtn.addCost = upVO.addCost;
+        upbtn.amount = upVO.amount;
+        upbtn.cost = upVO.cost;
+    }
+
+    public void SaveDNAData(DNA dna, int value)
+    {
+        if (!GameManager.Instance.bSave) return;
+
+        string path = Application.persistentDataPath + "/" + "DNA" + value + ".txt";
+
+        DNAVO dnaVo = new DNAVO();
+
+        dnaVo.isLock = dna.isLock;
+
+        string json = JsonUtility.ToJson(dnaVo, true);
+
+        File.WriteAllText(path, json);
+    }
+
+    public void LoadDNAData(ref DNA dna, int value)
+    {
+        if (!GameManager.Instance.bSave) return;
+
+        string path = Application.persistentDataPath + "/" + "DNA" + value + ".txt";
+
+        if (!File.Exists(path))
+        {
+            SaveDNAData(dna, value);
+        }
+
+        string json = File.ReadAllText(path);
+
+        DNAVO dnaVO = JsonUtility.FromJson<DNAVO>(json);
+
+        dna.isLock = dnaVO.isLock;
     }
 }

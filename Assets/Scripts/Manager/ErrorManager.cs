@@ -32,6 +32,8 @@ public class ErrorManager : MonoBehaviour
     public Text errorText;
     public CanvasGroup error;
 
+    private Coroutine co;
+
     private void Awake()
     {
         if (!instance)
@@ -51,12 +53,20 @@ public class ErrorManager : MonoBehaviour
 
         errorText.text = payload;
 
-        error.alpha = 1f;
-        Invoke("CloseError", 0.5f);
+        if(co != null)
+        {
+            StopCoroutine(co);
+        }
+
+        co = StartCoroutine(errorRoutine());
     }
 
-    private void CloseError()
+    private IEnumerator errorRoutine()
     {
+        error.alpha = 1f;
+
+        yield return new WaitForSeconds(0.5f);
+
         error.alpha = 0f;
     }
 }

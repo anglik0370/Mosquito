@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     {
         if(beforeTouch != pInput.isTouch)
         {
-            if (pInput.isTouch /*&& AnimManager.Instance.isAnimEnd*/ && GameManager.Instance.CheckLife())
+            if (pInput.isTouch /*&& AnimManager.Instance.isAnimEnd*/ && GameManager.Instance.CheckLife(1))
             {
                 SuckStart();
             }
@@ -52,11 +52,13 @@ public class Player : MonoBehaviour
     private void SuckStart()
     {
         GameManager.Instance.UseLife(1);
+
         if (co != null)
         {
             GameManager.Instance.curBloodOnce = 0;
             StopCoroutine(co);
         }
+
         co = StartCoroutine(SuckBloodRoutine());
 
         AnimManager.Instance.MosquitoMoveDown();
@@ -70,7 +72,7 @@ public class Player : MonoBehaviour
 
         if(GameManager.Instance.curBloodOnce + GameManager.Instance.curBlood < GameManager.Instance.maxBlood)
         {
-            GameManager.Instance.curBlood += GameManager.Instance.curBloodOnce;
+            GameManager.Instance.curBlood += GameManager.Instance.curBloodOnce * GameManager.Instance.beaSu;
         }
         else
         {

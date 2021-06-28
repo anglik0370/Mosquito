@@ -19,7 +19,6 @@ public class FactoryPanel : MonoBehaviour
     private int clickCount = 0;
 
     public Parts[] parts;
-    private int i = 1;
 
     Sequence seq;
 
@@ -35,7 +34,7 @@ public class FactoryPanel : MonoBehaviour
 
     private void AddCount()
     {
-        if (100 <= clickCount + GameManager.Instance.clickAmount)
+        if (100 < clickCount + GameManager.Instance.clickAmount)
         {
             GameManager.Instance.AddLife(1);
 
@@ -50,31 +49,43 @@ public class FactoryPanel : MonoBehaviour
             clickCount = 0;
             text.text = clickCount.ToString();
 
-            i = 1;
-
             seq = DOTween.Sequence();
 
             seq.Kill();
 
             seq.Append(moImg.DOMove(target.position, duration));
             seq.Join(moImg.DOScale(0, duration));
-            seq.AppendCallback(() =>
-            {
-                UIManager.Instance.ShakeCam();
-            });
         }
         else
         {
             clickCount += GameManager.Instance.clickAmount;
             text.text = clickCount.ToString();
 
-            if (clickCount % ((float)i * 15) == 0)
+            if(clickCount >= 16)
             {
-                //터치 수 15마다 해줘야 할 일
-                parts[i-1].MergePart();
-
-                i++;
+                parts[0].MergePart();
             }
+            if(clickCount >= 32)
+            {
+                parts[1].MergePart();
+            }
+            if(clickCount >= 48)
+            {
+                parts[2].MergePart();
+            }
+            if(clickCount >= 64)
+            {
+                parts[3].MergePart();
+            }
+            if(clickCount >= 78)
+            {
+                parts[4].MergePart();
+            }
+            if(clickCount >= 96)
+            {
+                parts[5].MergePart();
+            }
+
         }
     }
 }
