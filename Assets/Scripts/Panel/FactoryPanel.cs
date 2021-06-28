@@ -38,6 +38,8 @@ public class FactoryPanel : MonoBehaviour
         {
             GameManager.Instance.AddLife(1);
 
+            DOTween.KillAll();
+
             foreach (var part in parts)
             {
                 part.ResetPart();
@@ -50,8 +52,6 @@ public class FactoryPanel : MonoBehaviour
             text.text = clickCount.ToString();
 
             seq = DOTween.Sequence();
-
-            seq.Kill();
 
             seq.Append(moImg.DOMove(target.position, duration));
             seq.Join(moImg.DOScale(0, duration));

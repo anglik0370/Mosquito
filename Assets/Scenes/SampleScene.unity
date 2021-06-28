@@ -5230,17 +5230,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84b40ca3d0877640b90b9038009ffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
-  maxLife: 20
-  suckPerTime: 1
-  curBlood: 0
-  maxBlood: 1000
+  life: 40
+  maxLife: 100
+  suckPerTime: 20
+  curBlood: 30235
+  maxBlood: 100000
   curBloodOnce: 0
-  maxBloodOnce: 100
+  maxBloodOnce: 2000
   isDown: 0
   beaSu: 1
   isGameOver: 0
-  clickAmount: 1
+  clickAmount: 3
   bSave: 0
 --- !u!4 &940967071
 Transform:
