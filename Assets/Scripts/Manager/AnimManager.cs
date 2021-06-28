@@ -94,10 +94,11 @@ public class AnimManager : MonoBehaviour
     public void SwingArm()
     {
         fadeSequence.Kill();
+        fadeSequence = DOTween.Sequence();
 
         armSequence.Kill();
         armSequence = DOTween.Sequence();
-        
+
         armSequence.Append(swingArmTrm.DORotate(swingPos, 0.5f, RotateMode.Fast));
         armSequence.Append(particleTrm.DOScale(new Vector3(1, 1, 1), 0.1f));
         armSequence.Append(particleTrm.DOScale(new Vector3(0, 0, 0), 0.1f));
@@ -114,7 +115,7 @@ public class AnimManager : MonoBehaviour
             swingArmTrm.DORotate(originPos, 0.5f, RotateMode.Fast).OnComplete(() => 
             {
                 DOTween.To(() => UIManager.Instance.basicPanel.alpha, x => UIManager.Instance.basicPanel.alpha = x, 1, 1f);
-                FadeOutCvs();
+                DOTween.To(() => UIManager.Instance.packImg.alpha, x => UIManager.Instance.packImg.alpha = x, 1, 0.5f);
                 DOTween.To(() => UIManager.Instance.hiddenPanel.alpha, x => UIManager.Instance.hiddenPanel.alpha = x, 0, 0.5f).OnComplete(() =>
                 {
                     mosquitoTrm.position = originTrm.position;

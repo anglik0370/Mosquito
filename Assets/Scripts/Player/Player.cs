@@ -51,8 +51,6 @@ public class Player : MonoBehaviour
 
     private void SuckStart()
     {
-        GameManager.Instance.UseLife(1);
-
         if (co != null)
         {
             GameManager.Instance.curBloodOnce = 0;
@@ -61,8 +59,9 @@ public class Player : MonoBehaviour
 
         co = StartCoroutine(SuckBloodRoutine());
 
-        AnimManager.Instance.MosquitoMoveDown();
+        GameManager.Instance.UseLife(1);
 
+        AnimManager.Instance.MosquitoMoveDown();
         AnimManager.Instance.FadeInCvs();
     }
 
@@ -70,9 +69,9 @@ public class Player : MonoBehaviour
     {
         suckDelay = 1f;
 
-        if(GameManager.Instance.curBloodOnce + GameManager.Instance.curBlood < GameManager.Instance.maxBlood)
+        if(Mathf.Round(GameManager.Instance.curBloodOnce) + GameManager.Instance.curBlood < GameManager.Instance.maxBlood)
         {
-            GameManager.Instance.curBlood += GameManager.Instance.curBloodOnce * GameManager.Instance.beaSu;
+            GameManager.Instance.curBlood += Mathf.Round(GameManager.Instance.curBloodOnce) * GameManager.Instance.beaSu;
         }
         else
         {

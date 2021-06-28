@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateBarText()
     {
-        barText.text = string.Concat(GameManager.Instance.curBloodOnce, " / ", GameManager.Instance.maxBloodOnce);
+        barText.text = string.Concat(Mathf.Round(GameManager.Instance.curBloodOnce), " / ", GameManager.Instance.maxBloodOnce);
     }
 
     public void UpdateCurBloodText()

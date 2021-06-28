@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     public float curBloodOnce = 0f;
     public float maxBloodOnce = 100;
 
+    [Header("모기가 팔에 앉았는지")]
+    public bool isDown = false;
+
     [Header("DNA 보유에 따른 배율")]
     public int beaSu = 1;
 
